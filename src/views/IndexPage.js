@@ -9,6 +9,7 @@ const IndexPage = () => {
                 <li><Link to='/admin'>Admin</Link></li>
                 <li><Link to='/controller'>Controller</Link></li>
                 <li><Link to='/client'>Client</Link></li>
+                <li><Link to='/login'>Login</Link></li>
             </ul>
         </div>
     );

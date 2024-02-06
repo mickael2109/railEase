@@ -5,6 +5,7 @@ import IndexPage from './views/IndexPage';
 import AdminRoute from './routes/AdminRoute';
 import ControllerRoute from './routes/ControllerRoute';
 import ClientRoute from './routes/ClientRoute';
+import AuthRoute from './routes/AuthRoute';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/admin/*" element={<AdminRoute/>}/>
             <Route path="/controller/*" element={<ControllerRoute/>}/>
             <Route path="/client/*" element={<ClientRoute/>}/>
+            <Route path="/login/*" element={<AuthRoute/>}/>
         </Routes>  
     </BrowserRouter>
   );
