@@ -1,0 +1,274 @@
+/* ADMIN LAYOUT */
+.adminPage{
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+.contentPageAdmin{
+    width: 100%;
+    height: 100vh;
+}
+
+.outlet-page{
+    padding: 10px;
+}
+
+/* -------------------------------------------------------------------------- */
+                /* NAVBAR */
+/* -------------------------------------------------------------------------- */
+         .contentPageAdmin .navbar_admin{
+            background-color: var(--background-color-1);
+            padding: 10px;
+        }
+            .navbar_admin .navbar-education{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                color: #fff;
+            }
+                .navbar-education .icon-navbar{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    margin-right: 20px;
+                }
+                    .navbar-education .icon-navbar .icon{
+                        margin-right: 10px;
+                        cursor: pointer;
+                    }
+                        .navbar-education .icon-navbar .pointAlert{
+                            height: 8px;
+                            width: 8px;
+                            border-radius: 50%;
+                            background-color: red;
+                            position: absolute;
+                            margin-top: -20px;
+                            margin-left: 10px;
+                            animation: popPoint 1s ease forwards infinite;
+                        }
+                        .navbar-education .icon-navbar .point{
+                            height: 0px;
+                            width: 0px;
+                        }
+                         /* KEYFRAMES ANIMATION */
+                        @keyframes popPoint {
+                            0%{
+                                padding: 0px;
+                            }
+                            50%{
+                                padding: 3px;
+                            }100%{
+                                padding: 6px;
+                            }
+                        }
+                            
+                /**/
+                .navbar-education .info-user{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                }
+                    .info-user .profile-image{
+                        width: 44px;
+                        height: 44px;
+                        margin-right: 10px;
+                    }
+                        .info-user .profile-image img{
+                            width: 44px;
+                            height: 44px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+                    .info-user .profile-info span{
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        cursor: pointer;
+                    }
+
+
+/* -------------------------------------------------------------------------- */
+                /* SIDEBAR */
+/* -------------------------------------------------------------------------- */
+    .adminPage .sidebar_admin{
+        background-color: var(--background-color-1);
+        width: 300px;
+        height: 100vh;
+        color: var(--text-color);
+    }
+        .logo-place{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 64px;
+            justify-content: space-between;
+            background-color: var(--bleu-color);
+        }
+            .logo-place .logo{        
+                margin-left: 60px;
+            }
+                .logo-place .logo img{
+                    width: 200px;
+                }
+                .logo-place .logo .logo_min{
+                    width: 65px;
+                }
+                    .logo .logo_min{
+                        /* display: none; */
+                    }
+            .logo-place .icon-bar .reduce_sidebar{
+                cursor: pointer;
+            }
+
+        .profile-sidebar{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+            background-color: var(--background-color-1);
+        }
+            .profile-sidebar .profile-image img{
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+            .profile-sidebar .profile-information .info-nom{
+                font-size: 9px;
+                text-transform: uppercase;
+            }
+            .profile-sidebar .profile-information .info-fonction{
+                font-size: 10px;
+            }
+
+
+        .navigation{
+        }
+            .navigation .titre{
+                padding: 10px;
+            }
+                .navigation .titre span{
+                    font-size: 10px;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    color: var(--gris-color);
+                }
+            
+            .navigation li{
+                padding: 10px 10px 10px 20px;
+                border-radius: 0 25px 25px 0;
+                margin-right: 20px;
+                margin-top: 2px;
+                cursor: pointer;
+                list-style: none;
+            }
+            .navigation li span{
+                letter-spacing: 1px;
+             }
+
+             .navigation li .labelSide{
+                visibility: visible;
+             }
+               
+            .navigation li:hover{
+                background-color: var(--background-color-white2);
+            }
+            .navigation li:hover{
+                color: var(--text-black);
+            }
+                .navigation li:hover i{
+                    background-color: #2b8dc7;
+                }
+            .navigation li.active{
+                background-color: var(--background-color-white2);
+            }
+            .navigation li.active span{
+                font-weight: 600;
+                color: var(--text-black);
+             }
+
+            .navigation li i{
+                background-color: #22242E;
+                padding: 7px 9px 7px 9px;
+                border-radius: 50%;
+            }
+                .navigation li.active i{
+                    background-color: #2b8dc7;
+                }
+
+                .navigation a{
+                    color: var(--text-color);
+                    font-size: 14px;
+                    text-decoration: none;
+                }
+                .navigation li span{
+                   margin-left: 10px;
+                }
+        /**
+        *  REDUIRE SIDEBAR
+        */
+        .logo_min.activeMiniSidebar{
+            display: block;
+        }
+        .desactiveMaxSidebar{
+            display: none;
+        }
+        .navigation li .labelSideReduice{
+            visibility: visible;
+        }
+
+        .sidebar_admin.miniSidebar{
+            width: 100px;
+        }
+        .logo.logoReduice{        
+            margin-left: 0px;
+        }
+
+
+
+/* -------------------------------------------------------------------------- */
+                /*  LOADING */
+/* -------------------------------------------------------------------------- */
+.loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px; /* ou ajustez la hauteur selon vos besoins */
+}
+
+.loading-spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Ajoutez ce style CSS pour le spinner */
+.spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

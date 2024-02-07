@@ -7,7 +7,6 @@ const AdminRoute = () => {
     return (
         <Routes>
             <Route path='/' element={<IndexAdmin/>}/>
-            
             <Route path='*' element={<Utils.PageNotFound/>}/>
         </Routes>
     );

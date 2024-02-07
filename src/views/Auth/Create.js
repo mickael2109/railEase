@@ -34,17 +34,15 @@ const Create = () => {
                   "password": user.password,
                   "image ": profile, 
                   "nomImage": profile.name,
-                  "roleId": 3
+                  "roleId": 2
                 },{
                   headers: {"Content-Type": "multipart/form-data"}
                 }).then(res=>{
                       Utils.sucess("Votre compte est bien enregistrée!")
-                      setUser(...user)
-                      setUser({...user, preview: '../media/userdefault.png'})
-                      setProfile('')
+                      window.location.href='/'
                 })
                 .catch((error) => {
-                  Utils.errorPage("Erreur d'enregistrement! ")
+                  Utils.errorPage(error.response.data.message)
                 })
               } catch (error) {
                   Utils.errorPage('Une erreur s\'est produite lors de la connexion. Veuillez réessayer.')

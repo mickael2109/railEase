@@ -82,6 +82,10 @@
    --------------------------------------------- */
 .content-index{
     background-color: var(--background-color-white2);
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    left: 0;
 }
 .titre-section{
     text-align: center;
@@ -99,17 +103,28 @@
 
 
 /* ACCEUIL */
+.accueil .back-accueil img{
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 1;
+    left: 0;
+}
 .accueil{
     background-color: var(--background-color-white1);
     margin-top: 85px;
     height: 100vh;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    /* align-items: center; */
 }
     .accueil .accueil-text{
         width: 500px;
         text-align: center;
+        z-index: 1;
+        margin-top: 90px;
     }
         .accueil-text .titre{
             color: var(--text-color-orange);
@@ -124,3 +139,22 @@
             .accueil-text .txt{
                 color: var(--text-color-2);
             }
+
+    .accueil .accueil-image{
+        z-index: 0;
+    }
+
+/* BOUTON */
+.btn-commencer{
+    margin-top: 30px;
+    z-index: 9999;
+}
+.btn-commencer a{
+    background-color: var(--text-color-bleu);
+    padding: 10px 20px 10px 20px;
+    color: var(--text-color);
+    border-radius: 12px;
+}
+    .btn-commencer a:hover{
+        color: var(--text-color);
+    }

@@ -19,13 +19,15 @@ code {
   --text-color-orange: #C6610F;
   --text-color-bleu: #005296;
   --bleu-login : #007DFE;
+  --text-black : #2B2B2B;
 
   /*----------- BACKGROUND -----------*/
   --background-color-blue: #0B1039;
   --background-color-orange: #C6610F;
   --background-color-white1: #FFFFFF;
   --background-color-white2: #F9F9F9;
-  
+  --background-color-1: #0075B7;
+  --background-color-2: #FFFFFFFF;
 
   --box-shadow-clair: 0px 0px 5px 0px rgba(39, 37, 37, 0.6);
   --box-shadow-navbar: 0px 0px 4px 0px rgba(39, 37, 37, 0.6);

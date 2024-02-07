@@ -11,7 +11,12 @@ const IndexPage = () => {
                 <Navbar/>
             </div>
             <div className='content-index'>
+
+                {/* ACCUEIL */}
                 <div className='accueil'>
+                    <div className='back-accueil'>
+                        <img src="../media/background/wave(2).svg" alt="" className='imageback' />
+                    </div>
                     <div className='accueil-text'>
                         <p className='titre'>Colourful & sexy!</p>
                         <p className='sous-titre'>creating websites that make you stop & stare</p>
@@ -26,6 +31,8 @@ const IndexPage = () => {
                         <img src='../media/background/train3.gif' alt='accueil-images'/>
                     </div>
                 </div>
+
+                {/* SERVICE */}
                 <div className='service' id='service'>
                     <div className='titre-section'>
                         <span><span className='gras'>N</span>otre <span className='gras'>S</span>ervice</span>
@@ -36,19 +43,12 @@ const IndexPage = () => {
                         <p className='txt'>Accusantium quam, aliquam ultricies eget tempor id, aliquam eget nibh et. 
                             Maecen aliquam, risus at semper. Proin iaculis purus consequat sem cure digni ssim. Donec porttitora entum. 
                         </p>
-                        <div className='btn-commencer'>
-                            <AnchorLink to="">Get Started</AnchorLink>
-                        </div>
+                      
                     </div>
                     <div className='accueil-image'>
                         <img src='../media/background/train3.gif' alt='accueil-images'/>
                     </div>
                 </div>
-
-
-                <li><Link to='/admin'>Admin</Link></li>
-                <li><Link to='/controller'>Controller</Link></li>
-                <li><Link to='/client'>Client</Link></li>
             </div>
         </div>
     );
