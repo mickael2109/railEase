@@ -28,7 +28,7 @@
       justify-content: center;
     }
         .input-auth h2{
-            color: #1A42BC;
+            color: var(--bleu-login);
             font-size: 30px;
             font-weight: 600;
         }
@@ -57,7 +57,7 @@
             }
 
         .input-auth .btn-auth{
-            background-color: #1A42BC;
+            background-color: var(--bleu-login);
             padding: 10px;
             border-radius: 10px;
             border: 0;
@@ -74,3 +74,30 @@
                 text-decoration: none;
             }
        
+/* CREATE COMPTE */
+.profile-user{
+    height: 100px;
+    width: 100px;
+}
+    .profile-user input{
+        border: 0;
+        opacity: 0;
+    }
+    .profile-user .file-cta{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: transparent;
+    }
+        .profile-user label img{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+
+    .profile-user .icon-modifier{
+        position: absolute;
+        margin: -50px 0 0 90px;
+    }

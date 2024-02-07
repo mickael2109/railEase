@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { FaLock, FaUser } from 'react-icons/fa';
+import { FaEdit, FaLock, FaPhoneAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { MdDriveFileRenameOutline, MdEmail, MdPermIdentity } from "react-icons/md";
+import { Utils } from '../../_utils/utils';
 
 const Create = () => {
 
     const [user, setUser] = useState({
-        nom: '', email: '', cin: '', num: '', password: '',preview: ''
+        nom: '', email: '', cin: '', num: '', password: '',preview: '../media/userdefault.png', confirm_mdp: ""
     })
 
     const [profile, setProfile] = useState('')
@@ -22,44 +23,38 @@ const Create = () => {
 
     const createCompte = async (e) => {
         e.preventDefault()
-        console.log("nom : ",user.name)
-        console.log("email : ",user.email)
-        console.log("cin : ",user.cin)
-        console.log("num : ",user.num)
-        console.log("password : ",user.password)
-        console.log("image : ",user.preview)
+        if(user.password === user.confirm_mdp){
+            try {
+                await axios.put('http://localhost:5000/user/register', 
+                {
+                  "nom": user.nom,
+                  "email": user.email,
+                  "cin": user.cin,
+                  "phone": user.num,
+                  "password": user.password,
+                  "image ": profile, 
+                  "nomImage": profile.name,
+                  "roleId": 3
+                },{
+                  headers: {"Content-Type": "multipart/form-data"}
+                }).then(res=>{
+                      Utils.sucess("Votre compte est bien enregistrée!")
+                      setUser(...user)
+                      setUser({...user, preview: '../media/userdefault.png'})
+                      setProfile('')
+                })
+                .catch((error) => {
+                  Utils.errorPage("Erreur d'enregistrement! ")
+                })
+              } catch (error) {
+                  Utils.errorPage('Une erreur s\'est produite lors de la connexion. Veuillez réessayer.')
+            }
+            
+        }else{
+            Utils.errorPage("Veuillez confirmer votre mot de passe! ")
+        };
+    }
         
-        // try {
-        //   await axios.put('http://localhost:5000/auth/create', 
-        //   {
-        //     "name": user.nom,
-        //     "email": user.email,
-        //     "cin": user.cin,
-        //     "num": user.num,
-        //     "password": user.password,
-        //     "image ": user.preview
-        //   }).then(res=>{
-        //         window.location.href='/admin'
-        //         const token = res.data.access_token;
-        //         localStorage.setItem('token', token);       
-        //   })
-        //   .catch((error) => {
-        //     Swal.fire({
-        //       icon: 'error',
-        //       title: 'Erreur de connexion',
-        //       text: error.response.data.message,
-        //     });
-        //   })
-        // } catch (error) {
-        //   console.error('Erreur de connexion:', error);
-        //   Swal.fire({
-        //     icon: 'error',
-        //     title: 'Erreur de connexion',
-        //     text: 'Une erreur s\'est produite lors de la connexion. Veuillez réessayer.',
-        //   });
-        // }
-
-      };
 
 
     return (
@@ -70,30 +65,30 @@ const Create = () => {
             <form onSubmit={createCompte}>
                 <div className='input-auth'>
                 <h2>Inscription</h2>
+                <div className='profile-user'>
+                    <label className='file-label'>
+                        <input type='file' className='file-input' onChange={loadProfile}/>
+                        <span className='file-cta'>
+                            <img src={user.preview} alt='profile' className='img-profile' />
+                        </span>
+                    </label>
+                    <div className='icon-modifier'><i><FaEdit/></i></div>
+                </div>
+        
                 <div className="control">
-                        <div className="file">
-                            <label className='file-label'>
-                                <input type='file' className='file-input' onChange={loadProfile}/>
-                                <span className='file-cta'>
-                                    <span className='file-label'>Choisir une image ...</span>
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                <div className="control">
-                    <i><FaUser/></i>
+                    <i><MdDriveFileRenameOutline /></i>
                     <input type="text" value={user.nom} onChange={(e) => setUser({...user, nom: e.target.value})} className='input' placeholder="Nom" />
                 </div>
                 <div className="control">
-                    <i><FaUser/></i>
+                    <i><MdEmail/></i>
                     <input type="text" value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} className='input' placeholder="Email" />
                 </div>
                 <div className="control">
-                    <i><FaUser/></i>
+                    <i><MdPermIdentity/></i>
                     <input type="text" value={user.cin} onChange={(e) => setUser({...user, cin: e.target.value})} className='input' placeholder="CIN" />
                 </div>
                 <div className="control">
-                    <i><FaUser/></i>
+                    <i><FaPhoneAlt/></i>
                     <input type="text" value={user.num} onChange={(e) => setUser({...user, num: e.target.value})} className='input' placeholder="Numéro téléphone" />
                 </div>
                 <div className="control">
@@ -102,18 +97,9 @@ const Create = () => {
                 </div>
                 <div className="control">
                     <i><FaLock/></i>
-                    <input type="password" className='input' placeholder="Comfirmer votre mot de passe"  />
+                    <input type="password" value={user.confirm_mdp} onChange={(e) => setUser({...user, confirm_mdp: e.target.value})} className='input' placeholder="Comfirmer votre mot de passe"  />
                 </div>
-                {
-                    user.preview ? (
-                        <figure className='image is-128x128'>
-                            <img src={user.preview} alt='Preview images' />
-                        </figure>
-                    ):(
-                        ""
-                    )
-                }
-                
+
                 <button className='btn-auth'>S'inscrire</button>
 
                 <div className='create-compte'>

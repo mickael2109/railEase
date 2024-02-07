@@ -1,10 +1,15 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import IndexAdmin from '../views/Admin/IndexAdmin'
+import { Utils } from '../_utils/utils';
 
 const AdminRoute = () => {
     return (
-        <div>
+        <Routes>
+            <Route path='/' element={<IndexAdmin/>}/>
             
-        </div>
+            <Route path='*' element={<Utils.PageNotFound/>}/>
+        </Routes>
     );
 };
 

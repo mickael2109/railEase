@@ -3,6 +3,7 @@ import { FaLock, FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { Utils } from '../../_utils/utils';
 
 const Login = () => {
 
@@ -16,16 +17,19 @@ const Login = () => {
           "email": email,
           "password": password
         }).then(res=>{
-              window.location.href='/admin'
+              Utils.sucess("Connexion réussi") 
               const token = res.data.access_token;
-              localStorage.setItem('token', token);       
+              localStorage.setItem('token', token);  
+              if(res.data.role === 1){
+                window.location.href='/admin'
+              }else if(res.data.role === 2){
+                window.location.href='/client'
+              }else if(res.data.role === 3){
+                window.location.href='/controller'
+              }        
         })
         .catch((error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Erreur de connexion',
-            text: error.response.data.message,
-          });
+          Utils.errorPage(error.response.data.message)
         })
       } catch (error) {
         console.error('Erreur de connexion:', error);

@@ -1,0 +1,126 @@
+/* --------------------------------------------- 
+   ------------------ NAVBAR ------------------ 
+   --------------------------------------------- */
+.header{
+    z-index: 9999;
+    position: fixed;
+    height: 85px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition: 0.1s ease-in ; 
+    background-color: var(--background-color-white2);  
+}
+    .header.scroller{
+        height: calc(3.5rem + 1rem);
+        background-color: rgba(27, 26, 26, 0.4);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+
+    .navbar-public{
+        background-color: transparent !important;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+    }
+        
+        .navbar-public .navbar-logo img{
+            height: 70px;
+            width: 120px;
+            object-fit: cover;
+            position: relative;
+        }
+    
+        .navbar-public .navbar-lien{
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+            flex-direction: row;
+            align-items: center;
+        }
+            
+            .navbar-lien .lien a{
+                text-decoration: none;
+                color: var(--text-color-black);
+            }
+                .lien a span{
+                    margin-left: 10px;
+                    text-transform: uppercase;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+            .navbar-lien .btn-login{
+                background-color: var(--background-color-1);
+                padding: 10px 15px 15px 10px;
+                border-radius: 8px;
+            }
+        
+
+        .navbar-public .cliquer-navbar{
+            width: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            color: #fff;
+        }
+            .cliquer-navbar i{
+                cursor: pointer;
+            }
+  
+
+    .header .navbar-public .logo{
+        animation: slideTop 1s ease forwards;
+    }
+
+
+/* --------------------------------------------- 
+   ------------ CONTENT PUBLIC ----------------- 
+   --------------------------------------------- */
+.content-index{
+    background-color: var(--background-color-white2);
+}
+.titre-section{
+    text-align: center;
+    padding: 40px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+    .titre-section span{
+        font-size: 30px;
+        font-weight: 600;
+    }
+    .titre-section .gras{
+        color: var(--text-color-orange);
+    }
+
+
+/* ACCEUIL */
+.accueil{
+    background-color: var(--background-color-white1);
+    margin-top: 85px;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+    .accueil .accueil-text{
+        width: 500px;
+        text-align: center;
+    }
+        .accueil-text .titre{
+            color: var(--text-color-orange);
+            font-weight: bold;
+            font-size: 20px;
+        }
+            .accueil-text .sous-titre{
+                font-size: 35px;
+                text-transform: uppercase;
+                font-weight: 600;
+            } 
+            .accueil-text .txt{
+                color: var(--text-color-2);
+            }
