@@ -178,12 +178,17 @@ export const TrainGare = () => {
 
 export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare, endGare, idTrain }) => {
     const [numberOfForms, setNumberOfForms] = useState(nombreFormualire);
+    const tokens = localStorage.getItem('token');
     const [formData, setFormData] = useState({
-      start: '',
-      end: '',
+      token: tokens,
+      start: startGare,
+      end: endGare,
       numPlace: '',
-      personne: Array.from({ length: nombreFormualire }, () => ({})) // Initialiser un tableau d'objets vides pour stocker les données du formulaire
+      trainId: idTrain,
+      personne: Array.from({ length: nombreFormualire }, () => ({}))
     });
+
+   
   
     const handleNumberChange = (e) => {
       const value = parseInt(e);
@@ -201,21 +206,20 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare
     };
   
     const handleSubmit = async(e) => {
-      e.preventDefault();
-      const token = localStorage.getItem('token');
-     
+      e.preventDefault()
+      console.log(formData)
       try {
         await axios.put('http://localhost:5000/reservation/addReservation', 
         {
-          "token": token,
-          "start": startGare,
-          "end": endGare,
+          "token": formData.token,
+          "start": formData.start,
+          "end": formData.end,
           "numP": formData.numP,
-          "trainId": idTrain,
+          "trainId": formData.trainId,
           "personne": formData.personne
         }).then(res=>{
-              Utils.sucess("Votre compte est bien enregistrée!")
-              window.location.href='/'
+              Utils.sucess("Votre réservation a été bien enregistrée!")
+              window.location.href='/client'
         })
         .catch((error) => {
           Utils.errorPage(error.response.data.message)
@@ -226,9 +230,14 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare
     };
   
     useEffect(() => {
+      setNumberOfForms(nombreFormualire);
       handleNumberChange(nombreFormualire);
-      setFormData({...formData, numPlace: nombreFormualire})
-      setFormData({...formData, token: nombreFormualire})
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        start: startGare,
+        end: endGare,
+        trainId: idTrain
+      }));
     }, [nombreFormualire, startGare, endGare, idTrain]);
   
  
