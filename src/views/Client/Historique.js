@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MapContainer, TileLayer } from "react-leaflet"
 import { GareMap } from '../../components/Client/GareComp';
 import "leaflet-control-geocoder/dist/Control.Geocoder.css"
 import "leaflet-control-geocoder/dist/Control.Geocoder.js"
 import L from "leaflet"
-const Historique = () => {
+import {locations} from '../../data/data'
 
+const Historique = () => {
+    let data = locations
+    console.log("dataKely: ",data)
     const position = [-18.8992, 47.5579]
     let DefaultIcon = L.icon({
         iconUrl : "/marker-icon.png",

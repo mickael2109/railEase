@@ -8,6 +8,7 @@ import L from 'leaflet';
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import { useMap } from 'react-leaflet';
+import axios from "axios"
 
 export const TrainGare = () => {
     const {id} = useParams()
@@ -17,6 +18,7 @@ export const TrainGare = () => {
     const [showModal, setShowModal] = useState(false);
     const [nombreFormualire, setNombreFormulaire ] = useState(1)
     const options = [1, 2, 3, 4, 5];
+    const [gareListe, setGareListe] = useState([])
 
     const getTrainGare = async (id) => {
         try {
@@ -32,30 +34,61 @@ export const TrainGare = () => {
             setLoading(false);
         }
     }
+
+    const getAllGare = async () => {
+      try {
+          setLoading(true);
+          gareService.getGareAll()
+              .then((res) => {
+                setGareListe(res.data.gares);
+              })
+      } catch (error) {
+          Utils.errorPage(error);
+      } finally {
+          setLoading(false);
+      }
+  }
     useEffect(() => {
         if(id){
             getTrainGare(id);
+            getAllGare()
         }
     }, [id]);
 
     const openModal = async() => {
-        const { value: selectedNumber } = await Swal.fire({
-            title: 'Select a number:',
+      const { value: selectedNumber } = await Swal.fire({
+          title: 'Select a number:',
+          input: 'select',
+          inputOptions: options.reduce((acc, val) => {
+            acc[val] = val;
+            return acc;
+          }, {}),
+          inputPlaceholder: 'Select a number',
+          showCancelButton: true,
+        });
+    
+        if (selectedNumber) {
+          const { value: selectedOption } = await Swal.fire({
+            title: 'Select a station',
             input: 'select',
-            inputOptions: options.reduce((acc, val) => {
-              acc[val] = val;
+            inputOptions: gareListe.reduce((acc, gare) => {
+              acc[gare.id] = gare.nom; // Utiliser le nom de la gare comme option
               return acc;
             }, {}),
-            inputPlaceholder: 'Select a number',
+            inputPlaceholder: 'Select a station',
             showCancelButton: true,
           });
-      
-          if (selectedNumber) {
-            setNombreFormulaire(selectedNumber)
-            setShowModal(true);
-        }
         
-      };
+          if (selectedOption) {
+            setShowModal(true)
+            setNombreFormulaire(selectedNumber)
+            console.log(selectedOption)
+          } else {
+            Utils.errorPage("Aucune option sélectionnée")
+          }
+      }
+      
+    };
     
       const closeModal = () => {
         setShowModal(false);
@@ -122,7 +155,6 @@ export const TrainGare = () => {
 export const Reservation = ({ showModal, closeModal, nombreFormualire }) => {
     const [numberOfForms, setNumberOfForms] = useState(nombreFormualire);
     const [formData, setFormData] = useState({
-      userId: '1',
       start: '2',
       end: '3',
       numPlace: '',
@@ -138,20 +170,41 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire }) => {
   
     const handleInputChange = (index, e) => {
         const { name, value } = e.target;
-        const newFormData = [...formData.personne]; // Copier le tableau de données du formulaire existant
-        newFormData[index] = { ...newFormData[index], [name]: value }; // Mettre à jour les données du formulaire pour l'index spécifié
-        setFormData({...formData, personne: newFormData // Mettre à jour le tableau de données du formulaire avec les nouvelles données
-      });
+    
+          const newFormData = [...formData.personne]; // Copier le tableau de données du formulaire existant
+          newFormData[index] = { ...newFormData[index], [name]: value }; // Mettre à jour les données du formulaire pour l'index spécifié
+          setFormData({...formData, personne: newFormData});
     };
   
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
       e.preventDefault();
-      console.log(formData); // Afficher les données du formulaire dans la console
+      const token = localStorage.getItem('token');
+     
+      try {
+        await axios.put('http://localhost:5000/reservation/addReservation', 
+        {
+          "token": token,
+          // "start": start,
+          // "end": end,
+          "numP": formData.numP,
+          // "trainId": trainId,
+          "personne": formData.personne
+        }).then(res=>{
+              Utils.sucess("Votre compte est bien enregistrée!")
+              window.location.href='/'
+        })
+        .catch((error) => {
+          Utils.errorPage(error.response.data.message)
+        })
+    } catch (error) {
+        Utils.errorPage('Une erreur s\'est produite lors de la connexion. Veuillez réessayer.')
+    }
     };
   
     useEffect(() => {
       handleNumberChange(nombreFormualire);
       setFormData({...formData, numPlace: nombreFormualire})
+      setFormData({...formData, token: nombreFormualire})
     }, [nombreFormualire]);
   
  
@@ -170,8 +223,8 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire }) => {
                     {[...Array(numberOfForms)].map((_, index) => (
                       <div key={index} >
                         <h3>Voyageur n°0{index + 1}</h3>
-                        <input type="text" className='input' id={`nom${index}`} name={`nom${index}`} onChange={(e) => handleInputChange(index, e)} placeholder={`Nom du voyageur n°0${index+1}`}/>
-                        <input type="text" className='input' id={`cin${index}`} name={`cin${index}`} onChange={(e) => handleInputChange(index, e)} placeholder={`CIN du voyageur n°0${index+1}`}/>
+                        <input type="text" className='input' id={`nom`} name={`nom`} onChange={(e) => handleInputChange(index, e)} placeholder={`Nom du voyageur n°0${index+1}`}/>
+                        <input type="text" className='input' id={`cin`} name={`cin`} onChange={(e) => handleInputChange(index, e)} placeholder={`CIN du voyageur n°0${index+1}`}/>
                       </div>
                     ))}
                     <button type="submit" className="btn btn-valider">Valider</button>
@@ -187,81 +240,25 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire }) => {
 };
   
 
-export const GareMap = () =>{
+export const GareMap = ({ filteredLocations }) => {
   const map = useMap();
 
-    let iconBus = L.icon({
-        iconUrl: "/bus.png",
-        iconSize: [30, 30],
+  useEffect(() => {
+    // Efface tous les marqueurs de la carte
+    map.eachLayer(layer => {
+      if (layer instanceof L.Marker) {
+        map.removeLayer(layer);
+      }
     });
 
-    let myIcon = L.icon({
-        iconUrl: "/myIocalisation.png",
-        iconSize: [30, 30],
-    });
+    // Ajoute les nouveaux marqueurs pour les emplacements filtrés
+    if (filteredLocations.length > 0) {
+      filteredLocations.forEach(location => {
+        const marker = L.marker([location.latitude, location.longitude]).addTo(map);
+        marker.bindPopup(location.gare); // Affiche le nom du lieu dans la popup
+      });
+    }
+  }, [filteredLocations, map]); // Déclenche l'effet à chaque changement de filteredLocations ou map
 
-    const [latitude, setLatitude] = useState(0)
-    const [longitude, setLongitude] = useState(0)
-
-    useEffect(() => {
-        var marker1 = L.marker([0, 0], { icon: iconBus }).addTo(map);
-
-        if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition((position) => {
-                setLatitude(position.coords.latitude)
-                setLongitude(position.coords.longitude)
-    
-                // map.setView([latitude, longitude], 30, {icon: myIcon})
-                // L.marker([latitude, longitude], {icon: myIcon}).addTo(map)
-            },(error) => {
-                Swal.fire({ icon: 'error', title: 'Erreur', text: `Erreur de la géolocalisation, Veuillez vérifier votre connexion!`, });
-            })
-        }else{
-            Swal.fire({ icon: 'error', title: 'Erreur', text: `La géolocalisation n'est pas prise en charge par ce navigateur`, });
-        }
-
-        L.Routing.control({
-            waypoints: [
-                L.latLng(latitude, longitude),
-            ],
-            lineOptions: {
-                styles: [
-                    {
-                        color: 'blue',
-                        weight: 4,
-                        opacity: 0.7,
-                    },
-                ],
-            },
-            routerWhileDragging: false,
-            geocoder: L.Control.Geocoder.nominatim(),
-        })
-            .on("routesfound", function (e) {
-                console.log("lat : ",latitude, "lng :", longitude)
-                let coordinatesArray = [];
-
-                e.routes[0].coordinates.forEach((c, i) => {
-                    coordinatesArray.push({ latitude: c.lat, longitude: c.lng });
-                    
-                    setTimeout(() => {
-                        marker1.setLatLng([c.lat, c.lng]);
-                    }, 100 * i);
-                });
-
-                // Afficher les coordonnées depuis le coordinatesArray
-                // coordinatesArray.forEach((coord, index) => {
-                //     console.log(`Coordonnée ${index + 1}: Lat ${coord.lat}, Lng ${coord.log}`);
-                // });
-
-
-                
-                // Stocker les coordonnées dans le localStorage
-                // localStorage.setItem("coordinates", JSON.stringify(coordinatesArray));
-
-            })
-            .addTo(map);
-
-    }, [map, iconBus]);
-
-    return null;
+  return null;
 }

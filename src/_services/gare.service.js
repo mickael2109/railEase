@@ -10,6 +10,7 @@ let getTrainGare = (id) => {
     return Axios.get(`/train/getTrainGare/${id}`)
 }
 
+
 export const gareService = {
     getGareAll, getTrainGare
 }

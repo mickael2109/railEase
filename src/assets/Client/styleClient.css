@@ -308,10 +308,12 @@
     .gare-list{
         display: flex;
         flex-wrap: wrap;
-        width: 900px;
+        width: 700px;
+        overflow: hidden;
+        overflow-y: scroll;
     }
         .gare-list .card-item{
-            width: 400px;
+            width: 300px;
             height: 200px;
             margin: 10px;
             background-color: #0075B7;
@@ -319,7 +321,7 @@
             cursor: pointer;
         }
             .gare-list .card-item .card-image img{
-                width: 400px;
+                width: 300px;
                 height: 200px;
                 object-fit: cover;
                 border-radius: 8px 8px 8px 8px;
@@ -327,7 +329,7 @@
         .gare-list .card-item .card-body{
             position: absolute;
             margin-top: -205px;
-            width: 400px;
+            width: 300px;
             height: 200px;
             border-radius: 8px 8px 8px 8px;
             background-color: rgba(39, 37, 37, 0.478);
@@ -343,7 +345,7 @@
                 color: var(--text-color);
                 text-transform: uppercase;
                 font-weight: 600;
-                font-size: 25px;
+                font-size: 20px;
             }
 
     .gare-map {
@@ -395,25 +397,25 @@
 .train-gare{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 10px;
 }
     .train-gare .image-gare{
         height: 100vh;
-        width: 600px;
+        width: 500px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
         .image-gare img{
-            width: 600px;
+            width: 400px;
             height: 600px;
             object-fit: cover;
         }
 
     .train-gare .list-train{
-        width: 800px;
-        
+        width: 600px;
     }
 
 /* MODAL */

@@ -114,7 +114,7 @@
 }
 .accueil{
     background-color: var(--background-color-white1);
-    margin-top: 85px;
+    margin-top: 30px;
     height: 80vh;
     display: flex;
     justify-content: space-around;
@@ -129,10 +129,10 @@
         .accueil-text .titre{
             color: var(--text-color-orange);
             font-weight: bold;
-            font-size: 20px;
+            font-size: 18px;
         }
             .accueil-text .sous-titre{
-                font-size: 35px;
+                font-size: 28px;
                 text-transform: uppercase;
                 font-weight: 600;
             } 
@@ -175,7 +175,7 @@
         border-radius: 10px;
         background-color: #005296df;
         margin: 10px;
-        width: 300px;
+        width: 280px;
         height: 250px;
         padding: 10px;
         text-align: center;
@@ -215,7 +215,7 @@
 .btn{
     border: 0;
     padding: 10px 20px 10px 20px;
-    border-radius: 10px;
+    border-radius: 8px;
     color: var(--text-color);
     margin: 5px;
     cursor: pointer;
