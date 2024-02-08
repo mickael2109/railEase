@@ -34,5 +34,20 @@ code {
   --box-shadow-clair: 0px 0px 5px 0px rgba(39, 37, 37, 0.6);
   --box-shadow-navbar: 0px 0px 4px 0px rgba(39, 37, 37, 0.6);
 
+  --scroll-bar-color: #fff;
+  --scroll-color: #454f6b;
+
 }
 
+/*======= Scroll bar =======*/
+::-webkit-scrollbar {
+  width: 11px;
+  background: var(--scroll-bar-color);
+}
+
+::-webkit-scrollbar-thumb {
+  width: 100%;
+  background: var(--scroll-color);
+  border-radius: 2em;
+  filter: blur(5px);
+}

@@ -19,6 +19,7 @@ export const TrainGare = () => {
     const [nombreFormualire, setNombreFormulaire ] = useState(1)
     const options = [1, 2, 3, 4, 5];
     const [gareListe, setGareListe] = useState([])
+    const [idGareEnd, setIdGareEnd] = useState('')
 
     const getTrainGare = async (id) => {
         try {
@@ -82,6 +83,7 @@ export const TrainGare = () => {
           if (selectedOption) {
             setShowModal(true)
             setNombreFormulaire(selectedNumber)
+            setIdGareEnd(selectedOption)
             console.log(selectedOption)
           } else {
             Utils.errorPage("Aucune option sélectionnée")
@@ -104,7 +106,12 @@ export const TrainGare = () => {
             </div>
             <div className="train-gare">
                 <div className="image-gare">
-                    <img src={`../../media/gare/${dataGare}.jpg`} alt='logo'/>
+                    <div className="text-gare">
+                      <span>{`Gare ${dataGare}`}</span>
+                    </div>
+                    <div className="image">
+                      <img src={`../../media/gare/${dataGare}.jpg`} alt='logo'/>
+                    </div>
                 </div>
                 <div className="list-train">
                     {
@@ -118,25 +125,42 @@ export const TrainGare = () => {
                                     <table className='styled-table'>
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
                                                 <th>Nom</th>
                                                 <th>Matricule</th>
-                                                <th>Adresse</th>
+                                                <th>Date</th>
+                                                <th>Heure</th>
+                                                <th>Place Disponible</th>
                                                 <th>Réserver</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {dataTrain.map((trainItem, index) => (
-                                            
-                                            <tr key={index}>
-                                                <td>{trainItem.train.id}</td>
+                                          {dataTrain.map((trainItem, index) => {
+                                              // Déclaration des constantes pour chaque itération de la carte
+                                            const dateStr = trainItem.date;
+                                            const dateObj = new Date(dateStr);
+                                            const formattedDate = dateObj.toLocaleDateString();
+                                            const formattedTime = dateObj.toLocaleTimeString();
+
+                                            return (
+                                              <tr key={index}>
                                                 <td>{trainItem.train.nom}</td>
                                                 <td>{trainItem.train.matricule}</td>
-                                                <td>{trainItem.date}</td>
-                                                <td onClick={openModal}><button type="submit" className="btn btn-reserver">Réservation</button></td> 
-                                                <Reservation key={index} showModal={showModal} closeModal={closeModal} nombreFormualire={nombreFormualire}/>
-                                            </tr>
-                                        ))}
+                                                <td>{formattedDate}</td>
+                                                <td>{formattedTime}</td>
+                                                <td>{trainItem.placeDispo}</td>
+                                                <td onClick={openModal}><button type="submit" className="btn btn-reserver">Réservation</button></td>
+                                                <Reservation
+                                                    key={index}
+                                                    showModal={showModal}
+                                                    closeModal={closeModal}
+                                                    nombreFormualire={nombreFormualire}
+                                                    startGare={trainItem.gareId}
+                                                    endGare={idGareEnd}
+                                                    idTrain={trainItem.train.id}
+                                                />
+                                              </tr>
+                                            );
+                                          })}
                                         </tbody>
                                     </table>
                                 ) : (
@@ -152,11 +176,11 @@ export const TrainGare = () => {
 }
 
 
-export const Reservation = ({ showModal, closeModal, nombreFormualire }) => {
+export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare, endGare, idTrain }) => {
     const [numberOfForms, setNumberOfForms] = useState(nombreFormualire);
     const [formData, setFormData] = useState({
-      start: '2',
-      end: '3',
+      start: '',
+      end: '',
       numPlace: '',
       personne: Array.from({ length: nombreFormualire }, () => ({})) // Initialiser un tableau d'objets vides pour stocker les données du formulaire
     });
@@ -184,10 +208,10 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire }) => {
         await axios.put('http://localhost:5000/reservation/addReservation', 
         {
           "token": token,
-          // "start": start,
-          // "end": end,
+          "start": startGare,
+          "end": endGare,
           "numP": formData.numP,
-          // "trainId": trainId,
+          "trainId": idTrain,
           "personne": formData.personne
         }).then(res=>{
               Utils.sucess("Votre compte est bien enregistrée!")
@@ -205,7 +229,7 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire }) => {
       handleNumberChange(nombreFormualire);
       setFormData({...formData, numPlace: nombreFormualire})
       setFormData({...formData, token: nombreFormualire})
-    }, [nombreFormualire]);
+    }, [nombreFormualire, startGare, endGare, idTrain]);
   
  
     return (
