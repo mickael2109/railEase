@@ -9,6 +9,7 @@ const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [info, setInfo] = useState([])
   
     const handleLogin = async () => {
       try {

@@ -17,13 +17,15 @@ code {
   --text-color: #fff;
   --text-color-2: #969696;
   --text-color-orange: #C6610F;
-  --text-color-bleu: #005296;
+  --text-color-bleu: #0075B7;
   --bleu-login : #007DFE;
   --text-black : #2B2B2B;
 
   /*----------- BACKGROUND -----------*/
   --background-color-blue: #0B1039;
   --background-color-orange: #C6610F;
+  --background-color-red: #CC3435;
+  --background-color-green: #13853c;
   --background-color-white1: #FFFFFF;
   --background-color-white2: #F9F9F9;
   --background-color-1: #0075B7;

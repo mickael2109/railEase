@@ -11,18 +11,10 @@
     transition: 0.1s ease-in ; 
     background-color: var(--background-color-white2);  
 }
-    .header.scroller{
-        height: calc(3.5rem + 1rem);
-        background-color: rgba(27, 26, 26, 0.4);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-
     .navbar-public{
         background-color: transparent !important;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         padding: 10px;
     }
         
@@ -36,14 +28,17 @@
         .navbar-public .navbar-lien{
             width: 80%;
             display: flex;
-            justify-content: space-around;
+            justify-content: flex-end;
             flex-direction: row;
             align-items: center;
         }
             
+            .navbar-lien .lien{
+                margin-left: 10px;
+            }
             .navbar-lien .lien a{
                 text-decoration: none;
-                color: var(--text-color-black);
+                color: var(--text-color);
             }
                 .lien a span{
                     margin-left: 10px;
@@ -51,11 +46,16 @@
                     font-size: 14px;
                     font-weight: bold;
                 }
-            .navbar-lien .btn-login{
-                background-color: var(--background-color-1);
+            .navbar-lien .btn-auth{
                 padding: 10px 15px 15px 10px;
                 border-radius: 8px;
             }
+                .navbar-lien .login{
+                    background-color: var(--background-color-green);
+                }
+                .navbar-lien .create{
+                    background-color: var(--background-color-orange);
+                }
         
 
         .navbar-public .cliquer-navbar{
@@ -115,7 +115,7 @@
 .accueil{
     background-color: var(--background-color-white1);
     margin-top: 85px;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     justify-content: space-around;
     /* align-items: center; */
@@ -157,4 +157,75 @@
 }
     .btn-commencer a:hover{
         color: var(--text-color);
+    }
+
+/* SERVICE */
+.service{
+    position: absolute;
+    width: 80%;
+    bottom: 30px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+    .service .card-service{
+        color: var(--text-color);
+        border-radius: 10px;
+        background-color: #005296df;
+        margin: 10px;
+        width: 300px;
+        height: 250px;
+        padding: 10px;
+        text-align: center;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+    }
+        .service .card-service:hover{
+            background-color: #C6610F;
+            height: 260px;
+        }
+        .card-service .icon-service{
+            text-align: center;
+            padding: 10px;
+        }
+            .icon-service i{
+                font-size: 30px;
+                transition: 0.3s ease-in-out;
+            }
+            .service .card-service:hover .icon-service i{
+                background-color: var(--text-color);
+                color: var(--background-color-orange);
+                padding: 5px 10px 5px 10px;
+                border-radius: 50%;
+            }
+
+        .card-service .titre-service{
+            font-size: 20px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .card-service .text-service p{
+            font-size: 14px;
+        }
+    
+/* BOUTON */
+.btn{
+    border: 0;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    color: var(--text-color);
+    margin: 5px;
+    cursor: pointer;
+}
+    .btn-valider{
+        background-color: var(--background-color-green);
+    }
+    .btn-annuler{
+        background-color: var(--background-color-red);
+    }
+    .btn-reserver{
+        background-color: var(--background-color-1);
     }
