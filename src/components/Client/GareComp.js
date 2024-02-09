@@ -157,6 +157,7 @@ export const TrainGare = () => {
                                                     startGare={trainItem.gareId}
                                                     endGare={idGareEnd}
                                                     idTrain={trainItem.train.id}
+                                                    dateReservation={trainItem.date}
                                                 />
                                               </tr>
                                             );
@@ -176,7 +177,7 @@ export const TrainGare = () => {
 }
 
 
-export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare, endGare, idTrain }) => {
+export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare, endGare, idTrain, dateReservation }) => {
     const [numberOfForms, setNumberOfForms] = useState(nombreFormualire);
     const tokens = localStorage.getItem('token');
     const [formData, setFormData] = useState({
@@ -185,6 +186,7 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare
       end: endGare,
       numP: nombreFormualire,
       trainId: idTrain,
+      dateRes: dateReservation,
       personne: Array.from({ length: nombreFormualire }, () => ({}))
     });
 
@@ -211,6 +213,7 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare
       try {
         await axios.put('http://localhost:5000/reservation/addReservation', 
         {
+          "date": formData.dateRes,
           "token": formData.token,
           "start": formData.start,
           "end": formData.end,
@@ -219,7 +222,7 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare
           "personne": formData.personne
         }).then(res=>{
               Utils.sucess("Votre réservation a été bien enregistrée!")
-              window.location.href='/client'
+              // window.location.href='/client'
         })
         .catch((error) => {
           Utils.errorPage(error.response.data.message)
@@ -237,9 +240,10 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare
         start: startGare,
         end: endGare,
         trainId: idTrain,
+        dateRes: dateReservation,
         numP: nombreFormualire
       }));
-    }, [nombreFormualire, startGare, endGare, idTrain]);
+    }, [nombreFormualire, startGare, endGare, idTrain, dateReservation]);
   
  
     return (

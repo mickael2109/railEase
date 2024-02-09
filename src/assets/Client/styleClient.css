@@ -9,7 +9,7 @@
     box-sizing: border-box;
     overflow: hidden;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: #035c8f;
 }
 .contentPageAdmin{
@@ -100,14 +100,51 @@
 /* -------------------------------------------------------------------------- */
                 /* SIDEBAR */
 /* -------------------------------------------------------------------------- */
-    .adminPage .sidebar_admin{
+.sidebar_admin{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+    .sidebar_admin .sidebar-top{
+       background-color: var(--text-color); 
+       display: flex;
+       flex-direction: row;
+       padding: 10px;
+       border-radius: 20px;
+    }
+
+        .sidebar-top .image-user img{
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+/* .adminPage .sidebar_admin{
         background-color: var(--background-color-1);
         width: 300px !important;
         height: 100vh;
         color: var(--text-color);
         border-radius: 8px;
         margin: 5px;
+    } */
+    /* .adminPage .sidebar_admin{
+        background-color: var(--background-color-1);
+        width: 100px !important;
+        height: 100vh;
+        color: var(--text-color);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
+        .sidebar_admin .side{
+            background-color: var(--background-color-1);
+            height: 60vh;
+            border-radius: 30px;
+            margin: 50px;
+        }
         .logo-place{
             display: flex;
             flex-direction: row;
@@ -130,9 +167,9 @@
                     width: 65px;
                 }
                     .logo .logo_min{
-                        /* display: none; */
-                    }
-            .logo-place .icon-bar .reduce_sidebar{
+                        /* display: none; 
+                    } */
+            /* .logo-place .icon-bar .reduce_sidebar{
                 cursor: pointer;
             }
 
@@ -183,6 +220,7 @@
             }
             .navigation li span{
                 letter-spacing: 1px;
+                display: none;
              }
 
              .navigation li .labelSide{
@@ -222,11 +260,11 @@
                 }
                 .navigation li span{
                    margin-left: 10px;
-                }
+                } */
         /**
         *  REDUIRE SIDEBAR
         */
-        .logo_min.activeMiniSidebar{
+        /* .logo_min.activeMiniSidebar{
             display: block;
         }
         .desactiveMaxSidebar{
@@ -241,12 +279,13 @@
         }
         .logo.logoReduice{        
             margin-left: 0px;
-        }
+        } */
 
     /* LOGOUT */
-    .logout{
+    /* .logout{
         bottom: 0;
-    }
+    } */
+        
 
 
 /* -------------------------------------------------------------------------- */
