@@ -4,6 +4,7 @@ import { BiSolidTrain } from "react-icons/bi";
 import { MdMeetingRoom } from "react-icons/md";
 import { PiStudentFill } from "react-icons/pi";
 import { Link, useLocation } from 'react-router-dom';
+import { Utils } from '../../_utils/utils';
 
 const CSidebar = () => {
 
@@ -11,6 +12,7 @@ const CSidebar = () => {
     const location = useLocation()
     const [reduice, setReduice] = useState(false)
 
+    
     const reduiceSidebar = () => {
         const sidebarSolarma =  document.getElementById("sidebarFront");
         const logoS =  document.getElementById("logoS");
@@ -26,6 +28,7 @@ const CSidebar = () => {
         setReduice(false)
     }
     useEffect(() => {
+        Utils.verifyToken()
         if(location.pathname === '/admin'){
             setActiveTab('Dashboard')
         }else if (location.pathname === '/admin/prof'){
@@ -76,6 +79,10 @@ const CSidebar = () => {
                         <span className={`${!reduice ? "" : "desactiveMaxSidebar"}`}>Historique</span>
                     </li>
                 </Link>
+            </div>
+            <div className='logout'>
+                <button className='btn btn-logout' onClick={Utils.Logout}>Déconnexion</button>
+                
             </div>
         </div>
     );

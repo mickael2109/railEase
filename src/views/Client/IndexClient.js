@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import CSidebar from '../../components/Client/CSidebar';
+import { Utils } from '../../_utils/utils';
 
 const IndexClient = () => {
+
+    useEffect(() => {
+        Utils.verifyToken()
+    }, [])
+
     return (
         <div className='adminPage'>
              <div className='sidebar_admin' id='sidebarFront'>

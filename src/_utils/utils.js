@@ -23,7 +23,34 @@ let PageNotFound = () =>{
     )
 }
 
+// Logout
+let Logout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/login'; 
+};
+
+// Verify token
+let verifyToken = () => {
+    const tokens = localStorage.getItem('token');
+    if(!tokens){
+        Swal.fire({
+            title: `Token manquante, Vous devez reconnecter`,
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText:  `Reconnectée`,
+            denyButtonText: "Annuler",
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            }).then((result) => {
+                if (result.isConfirmed) { 
+                    Utils.Logout()
+                }else{             
+                    Utils.Logout()
+                }
+        });
+    }
+}
 
 export const Utils = {
-    errorPage, sucess, PageNotFound
+    errorPage, sucess, PageNotFound, Logout, verifyToken
 }

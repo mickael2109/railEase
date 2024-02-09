@@ -183,7 +183,7 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare
       token: tokens,
       start: startGare,
       end: endGare,
-      numPlace: '',
+      numP: nombreFormualire,
       trainId: idTrain,
       personne: Array.from({ length: nombreFormualire }, () => ({}))
     });
@@ -236,7 +236,8 @@ export const Reservation = ({ showModal, closeModal, nombreFormualire, startGare
         ...prevFormData,
         start: startGare,
         end: endGare,
-        trainId: idTrain
+        trainId: idTrain,
+        numP: nombreFormualire
       }));
     }, [nombreFormualire, startGare, endGare, idTrain]);
   
